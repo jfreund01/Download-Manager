@@ -113,8 +113,8 @@ def download(books, authors, urls_list):
     # Parse url entry data to get data blocks
     for i in range(len(urls_list)):
         if urls_list[i] != '':
-            data = [urls_list[i], 0, \
-                    f"{i + 1}{get_ext(urls_list[i])}"]
+            data = [f"{i + 1}{get_ext(urls_list[i])}", 0, \
+                    urls_list[i]]
             data_list.append(data)
 
     ## Creates executor to feed data blocks into download function
@@ -138,7 +138,10 @@ def download_url(data):
         for chunk in response.iter_content(chunk_size=1024*1024):
             file.write(chunk)
             written += 1
-            print (written/size)
+            if size != 0:
+                print (written/size)
+            else:
+                print(written)
     print(f"Downloaded File {filename}") 
     return 1
 
